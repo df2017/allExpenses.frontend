@@ -4,12 +4,11 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import DashboardPage from "./pages/dashboard/dashboardPage";
-import { createBrowserHistory } from 'history';
 
-const history = createBrowserHistory()
+
 function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Redirect from="/" to="/login" />
       <Switch>
         <Route path="/login" component={LoginPage} exact={true} />

@@ -10,17 +10,21 @@ function AuthGoogleLoginService() {
   const provider = process.env.REACT_APP_AUTH_PROVIDER_GOOGLE;
   const [addTodo] = useMutation(AUTH_GOOGLE);
 
-  const googleResponse = async (resp) => {
+  const responseSuccess = async (resp) => {
     const token = resp.accessToken;
-    localStorage.setItem("accessToken", token);
+    if(resp.accessToken){
+      localStorage.setItem("accessToken", token);
 
-    const result = await addTodo({
-      variables: { provider: provider, accessToken: token },
-    });
-    console.log(result);
-    history.push("/dashboard");
-    return <Redirect to="/dashboard" />;
+      const result = await addTodo({
+        variables: { provider: provider, accessToken: token },
+      });
+      history.push("/dashboard");
+      return <Redirect to="/dashboard" />;
+    }
   };
+  const responseFailure = (resp) => {
+      console.log(resp)
+  }
 
   return (
    
@@ -35,8 +39,8 @@ function AuthGoogleLoginService() {
             Login with GOOGLE
           </button>
         )}
-        onSuccess={googleResponse}
-        onFailure={googleResponse}
+        onSuccess={responseSuccess}
+        onFailure={responseFailure}
       />
  
   );
