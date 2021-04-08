@@ -22,7 +22,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "npm run-script build && serve build",
+    "start": "react-scripts start env-cmd -f ./environments/.env.production",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
